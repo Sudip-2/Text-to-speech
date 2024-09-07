@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to speech</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: space-evenly;
+            height: 100svh;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #txtArea {
+            min-height: 200px;
+            min-width: 350px;
+            font-size: 1.2rem;
+            padding: 10px 10px;
+            border-radius: 15px;
+        }
+
+        #playBtn,
+        #pauseBtn,
+        #stopBtn {
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 25px;
+            border: 1px rgb(165, 164, 164) solid;
+        }
+
+        #speedNum {
+            height: 30px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Text to speech</h1>
+    <div class="container">
+        <textarea name="text" id="txtArea" placeholder="Enter Your text here"></textarea>
+        <br>
+        <label for="speed">Speed</label>
+        <input type="number" min=".5" max="3" step=".5" value="1" id="speedNum" name="speed">
+        <button id="playBtn">Play</button>
+        <button id="stopBtn">Stop</button>
+    </div>
+</body>
+<script>
+    const textInput = document.getElementById('txtArea')
+    const playBtn = document.getElementById('playBtn')
+    const stopBtn = document.getElementById('stopBtn')
+    const speedInput = document.getElementById('speedNum')
+
+    playBtn.addEventListener('click', () => {
+        const utterance = new SpeechSynthesisUtterance(textInput.value)
+        utterance.rate = speedInput.value || 1
+        speechSynthesis.speak(utterance)
+    })
+
+    stopBtn.addEventListener('click', () => {
+        speechSynthesis.cancel()
+    })
+</script>
+
+</html>
